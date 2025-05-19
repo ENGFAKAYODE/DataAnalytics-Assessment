@@ -16,7 +16,7 @@ My solutions were designed with these in mind:
 - Accuracy — Correct results
 - Efficiency — Well-structured and optimized queries
 - Completeness — All requirements of each task addressed
-- Readability — I used nosql.com to achieve correct indentation of the codes. Comments were added where necessary.
+- Readability — I used poorsql.com to achieve correct indentation of the codes. Comments were added where necessary.
 
 ## QUESTIONS
 
