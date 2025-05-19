@@ -5,15 +5,19 @@ Task: Write a query to find customers with at least one funded savings plan AND 
 SELECT u.id AS owner_id
 	,u.name
 	,
+    
 	-- count the saving plans
 	COALESCE(savings_plans.savings_count, 0) AS savings_count
 	,
+    
 	-- count investment plans
 	COALESCE(investment_plans.investment_count, 0) AS investment_count
 	,
+    
 	-- total deposits amount
 	COALESCE(saved_amount.total_deposits, 0) AS total_deposits
 FROM users_customuser u
+
 -- find savings plans
 LEFT JOIN (
 	SELECT owner_id
@@ -24,6 +28,7 @@ LEFT JOIN (
 		AND is_archived = 0
 	GROUP BY owner_id
 	) AS savings_plans ON u.id = savings_plans.owner_id
+
 -- find investment plans
 LEFT JOIN (
 	SELECT owner_id
@@ -34,6 +39,7 @@ LEFT JOIN (
 		AND is_archived = 0
 	GROUP BY owner_id
 	) AS investment_plans ON u.id = investment_plans.owner_id
+
 -- get total deposits
 LEFT JOIN (
 	SELECT owner_id
@@ -41,6 +47,7 @@ LEFT JOIN (
 	FROM savings_savingsaccount
 	GROUP BY owner_id
 	) AS saved_amount ON u.id = saved_amount.owner_id
+
 -- filter customers
 WHERE COALESCE(savings_plans.savings_count, 0) > 0
 	AND COALESCE(investment_plans.investment_count, 0) > 0

@@ -12,7 +12,11 @@ select frequency_category,
        round(avg(transactions_per_month),1) as avg_transactions_per_month
 from(
 select s.owner_id,
+
+ -- calculate transactions per month
         count(*) / count(distinct date_format(s.created_on, '%Y-%m')) as transactions_per_month,
+        
+-- categorize the frequency category
         case 
             when count(distinct date_format(s.created_on, '%Y-%m')) >= 10 then "High Frequency"
 			when count(distinct date_format(s.created_on, '%Y-%m')) between 3 and 9 then "Medium Frequency"
